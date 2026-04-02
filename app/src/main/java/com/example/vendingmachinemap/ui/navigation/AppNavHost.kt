@@ -6,13 +6,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.vendingmachinemap.ui.screens.accountScreens.AccountScreen
-import com.example.vendingmachinemap.ui.screens.homeScreens.MapScreen
+import com.example.vendingmachinemap.ui.screens.homeScreens.HomeScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController, startDestination: Destinations, modifier: Modifier = Modifier) {
     NavHost(navController = navController, startDestination = startDestination.route) {
         composable(route = Destinations.Map.route) {
-            MapScreen()
+            HomeScreen()
         }
         composable(route = Destinations.Account.route) {
             AccountScreen()
