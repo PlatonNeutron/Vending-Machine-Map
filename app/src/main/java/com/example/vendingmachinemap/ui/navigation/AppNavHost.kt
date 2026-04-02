@@ -1,12 +1,12 @@
-package com.example.vendingmachinemap.navigation
+package com.example.vendingmachinemap.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.example.vendingmachinemap.ui.screens.AccountScreen
-import com.example.vendingmachinemap.ui.screens.MapScreen
+import com.example.vendingmachinemap.ui.screens.accountScreens.AccountScreen
+import com.example.vendingmachinemap.ui.screens.homeScreens.MapScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController, startDestination: Destinations, modifier: Modifier = Modifier) {

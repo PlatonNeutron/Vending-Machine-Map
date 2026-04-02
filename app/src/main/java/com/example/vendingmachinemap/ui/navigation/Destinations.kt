@@ -1,4 +1,4 @@
-package com.example.vendingmachinemap.navigation
+package com.example.vendingmachinemap.ui.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
