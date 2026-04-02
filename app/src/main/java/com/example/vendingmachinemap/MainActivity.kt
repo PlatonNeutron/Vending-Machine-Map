@@ -32,6 +32,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.vendingmachinemap.ui.theme.VendingMachineMapTheme
+import com.example.vendingmachinemap.navigation.Destinations
 
 // MainActivity
 class MainActivity : ComponentActivity() {
@@ -63,24 +64,14 @@ fun AccountScreen() {
 }
 
 // Logique de la navigation
-// Liste des destinations
-enum class Destination(
-    val label: String,
-    val route: String,
-    val icon: ImageVector
-) {
-    Map("Map", "map_screen", Icons.Default.LocationOn),
-    Account("Account", "account_screen", Icons.Default.AccountCircle)
-}
-
 // NavHost
 @Composable
-fun AppNavHost(navController: NavHostController, startDestination: Destination, modifier: Modifier = Modifier) {
+fun AppNavHost(navController: NavHostController, startDestination: Destinations, modifier: Modifier = Modifier) {
     NavHost(navController, startDestination = startDestination.route) {
-        Destination.entries.forEach { destination -> composable(destination.route) {
-                when (destination) {
-                    Destination.Map -> MapScreen()
-                    Destination.Account -> AccountScreen()
+        Destinations.entries.forEach { destinations -> composable(destinations.route) {
+                when (destinations) {
+                    Destinations.Map -> MapScreen()
+                    Destinations.Account -> AccountScreen()
                 }
             }
         }
@@ -91,27 +82,27 @@ fun AppNavHost(navController: NavHostController, startDestination: Destination, 
 @Composable
 fun NavigationBar() {
     val navController = rememberNavController()
-    val startDestination = Destination.Map
+    val startDestination = Destinations.Map
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
 
     Scaffold(
         //modifier = modifier,
         bottomBar = {
             NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
-                Destination.entries.forEachIndexed { index, destination ->
+                Destinations.entries.forEachIndexed { index, destinations ->
                     NavigationBarItem(
                         selected = selectedDestination == index,
                         onClick = {
-                            navController.navigate(route = destination.route)
+                            navController.navigate(route = destinations.route)
                             selectedDestination = index
                         },
                         icon = {
                             Icon(
-                                destination.icon,
-                                contentDescription = destination.label
+                                destinations.icon,
+                                contentDescription = destinations.label
                             )
                         },
-                        label = { Text(destination.label) }
+                        label = { Text(destinations.label) }
                     )
                 }
             }
