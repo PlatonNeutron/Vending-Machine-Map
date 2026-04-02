@@ -31,22 +31,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// Déclaration des composables
-// Déclaration des différents écrans
-@Composable
-fun MapScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Map Screen")
-    }
-}
-
-@Composable
-fun AccountScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Account Screen")
-    }
-}
-
 
 
 
