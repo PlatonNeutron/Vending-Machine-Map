@@ -23,5 +23,8 @@ class AccountViewModel : ViewModel() {
         if (mail == "test" && password == "test") {
             this.setState(AppStates.UiStates.Account.SignedIn)
         }
+        else {
+            this.setState(AppStates.UiStates.Account.Error("Mauvais email ou mot de passe !"))
+        }
     }
 }
