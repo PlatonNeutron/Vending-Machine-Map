@@ -2,7 +2,9 @@ package com.example.vendingmachinemap.ui.screens.addMachineScreens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -26,85 +28,85 @@ fun AddMachineScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(24.dp),
+            .padding(24.dp)
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        // Title
         Text(
             text = "Ajouter un distributeur",
-            style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.onBackground
+            style = MaterialTheme.typography.headlineMedium
         )
 
-        // Location
+        // Localisation
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Localisation du distributeur", style = MaterialTheme.typography.titleMedium)
-            Text(
-                text = viewModel.address,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+            Text("Localisation détectée", style = MaterialTheme.typography.titleMedium)
+            Surface(
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = viewModel.address,
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
+
+        // Nom du distributeur
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("Nom du distributeur", style = MaterialTheme.typography.titleMedium)
+            TextField(
+                value = viewModel.name,
+                onValueChange = { viewModel.name = it },
+                modifier = Modifier.fillMaxWidth(),
+                placeholder = { Text("Entrée sud Barbès-Rochechouart") },
+                singleLine = true,
+                shape = RoundedCornerShape(16.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                )
             )
         }
 
-        // Description / Comment
+        // Type de produit vendu (descritpion)
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Commentaire", style = MaterialTheme.typography.titleMedium)
-
+            Text("Type de produits", style = MaterialTheme.typography.titleMedium)
             TextField(
-                value = viewModel.comment,
-                onValueChange = { viewModel.comment = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(120.dp),
-                placeholder = { Text("Ceci est un commentaire...") },
+                value = viewModel.description,
+                onValueChange = { viewModel.description = it },
+                modifier = Modifier.fillMaxWidth().height(100.dp),
+                placeholder = { Text("Ex: Boissons fraîches, Snacks...") },
                 shape = RoundedCornerShape(16.dp),
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
                     focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent
+                    unfocusedIndicatorColor = Color.Transparent
                 )
             )
         }
 
         // Note / 5
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Note", style = MaterialTheme.typography.titleMedium)
+            Text("Note globale : ${viewModel.rating}/5", style = MaterialTheme.typography.titleMedium)
             Slider(
                 value = viewModel.rating.toFloat(),
                 onValueChange = { viewModel.rating = it.toInt() },
                 valueRange = 1f..5f,
-                steps = 3,
-                colors = SliderDefaults.colors(
-                    thumbColor = MaterialTheme.colorScheme.primary,
-                    activeTrackColor = MaterialTheme.colorScheme.primary
-                )
+                steps = 3
             )
-            Text("Note sélectionnée : ${viewModel.rating} / 5", style = MaterialTheme.typography.bodyMedium)
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // Add button
+        // Bouton valider
         Button(
-            onClick = {
-                viewModel.saveMachine { onNavigateBack() }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            enabled = viewModel.currentLatLng != null,
-            shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
-            )
+            onClick = { viewModel.saveMachine { onNavigateBack() } },
+            modifier = Modifier.fillMaxWidth().height(56.dp),
+            enabled = (viewModel.currentLatLng != null) && (viewModel.name.isNotBlank()),
+            shape = RoundedCornerShape(16.dp)
         ) {
-            Text(
-                text = if (viewModel.currentLatLng != null) "Ajouter le distributeur" else "Recherche GPS...",
-                style = MaterialTheme.typography.bodyLarge
-            )
+            Text(if (viewModel.currentLatLng != null) "Enregistrer" else "Localisation en cours...")
         }
     }
 }
