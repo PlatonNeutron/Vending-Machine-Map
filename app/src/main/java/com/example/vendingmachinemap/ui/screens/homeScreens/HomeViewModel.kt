@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class HomeViewModel : ViewModel() {
-    private val repository = VendingRepository()
 
     // Default location = Chicoutimi
     val defaultLocation = LatLng(48.4284, -71.0761)
@@ -21,6 +20,6 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun loadVendingMachines() {
-        _vendingMachines.value = repository.getNearbyVendingMachines()
+        _vendingMachines.value = VendingRepository.getNearbyVendingMachines()
     }
 }
