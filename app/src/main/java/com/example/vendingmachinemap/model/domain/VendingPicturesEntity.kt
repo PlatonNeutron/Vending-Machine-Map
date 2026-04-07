@@ -5,7 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 
 @Entity(
-    tableName = "vendingMachines",
+    tableName = "vendingPictures",
     primaryKeys = [
         "vendingId",
         "addedBy",
