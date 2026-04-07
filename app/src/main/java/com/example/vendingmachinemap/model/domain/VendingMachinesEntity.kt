@@ -5,9 +5,11 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "vendingMachines",
+@Entity(
+    tableName = "vendingMachines",
     foreignKeys = [
-        ForeignKey(entity = UsersEntity::class,
+        ForeignKey(
+            entity = UsersEntity::class,
             parentColumns = ["id"],
             childColumns = ["addedBy"])],
     indices = [Index("addedBy")])
