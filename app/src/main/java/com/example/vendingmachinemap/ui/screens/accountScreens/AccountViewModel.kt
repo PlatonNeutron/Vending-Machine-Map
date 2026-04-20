@@ -4,8 +4,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.vendingmachinemap.ui.screens.AppStates
 import androidx.compose.runtime.State
+import com.example.vendingmachinemap.model.data.dao.UsersDAO
 
-class AccountViewModel : ViewModel() {
+class AccountViewModel(val dao: UsersDAO) : ViewModel() {
     private var _uiState = mutableStateOf<AppStates.UiStates.Account>(AppStates.UiStates.Account.SignedOut)
     val uiState: State<AppStates.UiStates.Account> = _uiState
 
