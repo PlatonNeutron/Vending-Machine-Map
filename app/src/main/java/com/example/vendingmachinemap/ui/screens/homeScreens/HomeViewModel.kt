@@ -1,7 +1,7 @@
 package com.example.vendingmachinemap.ui.screens.homeScreens
 
 import androidx.lifecycle.ViewModel
-import com.example.vendingmachinemap.data.model.VendingMachine
+import com.example.vendingmachinemap.model.data.model.VendingMachine
 import com.example.vendingmachinemap.data.repository.VendingRepository
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,6 +1,6 @@
 package com.example.vendingmachinemap.data.repository
 
-import com.example.vendingmachinemap.data.model.VendingMachine
+import com.example.vendingmachinemap.model.data.model.VendingMachine
 import com.google.android.gms.maps.model.LatLng
 
 object VendingRepository { // Changement en 'object' pour partager les données
