@@ -5,7 +5,7 @@ import android.content.Context
 import android.location.Geocoder
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
-import com.example.vendingmachinemap.data.model.VendingMachine
+import com.example.vendingmachinemap.model.data.model.VendingMachine
 import com.example.vendingmachinemap.data.repository.VendingRepository
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng

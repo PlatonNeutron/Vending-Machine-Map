@@ -1,4 +1,4 @@
-package com.example.vendingmachinemap.data.model
+package com.example.vendingmachinemap.model.data.model
 
 import com.google.android.gms.maps.model.LatLng
 
