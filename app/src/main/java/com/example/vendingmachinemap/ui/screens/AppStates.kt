@@ -14,6 +14,8 @@ sealed interface AppStates {
 
             data object SignedIn : Account
 
+            data object CreatingAccount : Account
+
             data class Error(val message: String) : Account
         }
     }
