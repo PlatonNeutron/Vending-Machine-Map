@@ -35,7 +35,7 @@ class AccountViewModel(val dao: UsersDAO) : ViewModel() {
                 val user = users.firstOrNull()
 
                 if (user != null && user.mdpHash == mdpHash) {
-                    setState(AppStates.UiStates.Account.SignedIn)
+                    setState(AppStates.UiStates.Account.SignedIn(user))
                 } else {
                     setState(AppStates.UiStates.Account.Error("Mauvais email ou mot de passe !"))
                 }
@@ -57,9 +57,23 @@ class AccountViewModel(val dao: UsersDAO) : ViewModel() {
                     mdpHash = mdpHash
                 )
                 dao.upsertUser(newUser)
-                setState(AppStates.UiStates.Account.SignedIn)
+                setState(AppStates.UiStates.Account.SignedIn(newUser))
             } catch (e: Exception) {
                 setState(AppStates.UiStates.Account.Error("Erreur lors de la création du compte : ${e.message}"))
+            }
+        }
+    }
+
+    /**
+     * Supprime l'utilisateur de la base de données.
+     */
+    fun deleteUser(user: UsersEntity) {
+        viewModelScope.launch {
+            try {
+                dao.deleteUser(user)
+                setState(AppStates.UiStates.Account.SignedOut)
+            } catch (e: Exception) {
+                setState(AppStates.UiStates.Account.Error("Erreur lors de la suppression du compte : ${e.message}"))
             }
         }
     }
