@@ -3,11 +3,9 @@ package com.example.vendingmachinemap.ui.screens.accountScreens.accountDetailsSc
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,27 +19,20 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 import com.example.vendingmachinemap.ui.screens.AppStates
 import com.example.vendingmachinemap.ui.screens.accountScreens.AccountViewModel
-import com.example.vendingmachinemap.ui.theme.VendingMachineMapTheme
 import com.example.vendingmachinemap.R
 
 @Composable
-fun AccountDetailsScreen(viewModel: AccountViewModel = viewModel()) {
-    // viewmodel à remplacer par AcountDetailViewModel qui récupèrera les données du compte
-    // Ici c'est pour l'instant AccountViewModel puisque besoin de gérer le state de connexion et pas encore de repository
-
+fun AccountDetailsScreen(viewModel: AccountViewModel) {
     Scaffold(
         topBar = {
             Row(
@@ -67,7 +58,7 @@ fun AccountDetailsScreen(viewModel: AccountViewModel = viewModel()) {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.default_profile_picture_placeholder),
-                contentDescription = "Description for accessibility", // Use null if decorative
+                contentDescription = "Profile Picture",
                 modifier = Modifier.size(200.dp)
             )
             Text(
@@ -79,7 +70,7 @@ fun AccountDetailsScreen(viewModel: AccountViewModel = viewModel()) {
             ) {
                 Icon(
                     imageVector = Icons.Default.ExitToApp,
-                    contentDescription = "Add Item",
+                    contentDescription = "Sign Out",
                     modifier = Modifier.size(ButtonDefaults.IconSize)
                 )
                 Spacer(Modifier.size(ButtonDefaults.IconSpacing))
@@ -90,20 +81,12 @@ fun AccountDetailsScreen(viewModel: AccountViewModel = viewModel()) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Add Item",
+                    contentDescription = "Delete Account",
                     modifier = Modifier.size(ButtonDefaults.IconSize)
                 )
                 Spacer(Modifier.size(ButtonDefaults.IconSpacing))
                 Text("Supprimer mon compte")
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    VendingMachineMapTheme {
-        AccountDetailsScreen()
     }
 }

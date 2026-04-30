@@ -1,6 +1,7 @@
 package com.example.vendingmachinemap.ui.screens.accountScreens.loginScreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,10 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -27,15 +31,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 
-import com.example.vendingmachinemap.ui.theme.VendingMachineMapTheme
+import com.example.vendingmachinemap.ui.screens.AppStates
 import com.example.vendingmachinemap.ui.screens.accountScreens.AccountViewModel
 
 @Composable
-fun LoginContent(viewModel: AccountViewModel = viewModel()) {
+fun LoginContent(viewModel: AccountViewModel) {
     var userMail by remember { mutableStateOf("") }
     var userPass by remember { mutableStateOf("") }
 
@@ -59,18 +61,21 @@ fun LoginContent(viewModel: AccountViewModel = viewModel()) {
     ) { innerPadding ->
         Column(
             modifier = Modifier
-                .padding(innerPadding),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(innerPadding)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             TextField(
                 value = userMail,
                 onValueChange = { userMail = it },
-                label = { Text("Label") }
+                label = { Text("Email") },
+                modifier = Modifier.fillMaxWidth()
             )
             TextField(
                 value = userPass,
                 onValueChange = { userPass = it },
-                label = { Text("Label") }
+                label = { Text("Mot de passe") },
+                modifier = Modifier.fillMaxWidth()
             )
             Row() {
                 Text(
@@ -78,29 +83,25 @@ fun LoginContent(viewModel: AccountViewModel = viewModel()) {
                     text = "Pas de compte ?",
                 )
                 Text(
-                    modifier = Modifier.padding(8.dp),
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable { viewModel.setState(AppStates.UiStates.Account.CreatingAccount) },
                     text = "Créer un compte",
+                    color = Color.Blue
                 )
             }
             Button(
-                onClick = { viewModel.loginButtonCliqued(userMail, userPass) }
+                onClick = { viewModel.loginButtonCliqued(userMail, userPass) },
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Icon(
                     imageVector = Icons.Default.ExitToApp,
-                    contentDescription = "Add Item",
+                    contentDescription = "Login",
                     modifier = Modifier.size(ButtonDefaults.IconSize)
                 )
                 Spacer(Modifier.size(ButtonDefaults.IconSpacing))
                 Text("Se connecter")
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    VendingMachineMapTheme {
-        LoginContent()
     }
 }
