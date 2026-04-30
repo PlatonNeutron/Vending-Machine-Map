@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
     foreignKeys = [
         ForeignKey(
             entity = UsersEntity::class,
-            parentColumns = ["id"],
+            parentColumns = ["mail"],
             childColumns = ["addedBy"])],
     indices = [Index("addedBy")])
 data class VendingMachinesEntity(
@@ -19,5 +19,5 @@ data class VendingMachinesEntity(
     val lat : Double,
     val long : Double,
     val createdAt : Long,
-    val addedBy : Int
+    val addedBy : String
 )
