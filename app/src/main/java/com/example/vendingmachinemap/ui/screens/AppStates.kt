@@ -1,5 +1,7 @@
 package com.example.vendingmachinemap.ui.screens
 
+import com.example.vendingmachinemap.model.domain.UsersEntity
+
 // Sealed interface containing all possible states of the app
 sealed interface AppStates {
 
@@ -12,7 +14,7 @@ sealed interface AppStates {
 
             data object Loading : Account
 
-            data object SignedIn : Account
+            data class SignedIn(val user: UsersEntity) : Account
 
             data object CreatingAccount : Account
 

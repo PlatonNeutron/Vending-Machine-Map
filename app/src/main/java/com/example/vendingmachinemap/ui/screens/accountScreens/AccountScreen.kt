@@ -23,7 +23,7 @@ fun AccountScreen(dao: UsersDAO) {
 
     when (state) {
         AppStates.UiStates.Account.SignedOut -> LoginContent(viewModel = viewModel)
-        AppStates.UiStates.Account.SignedIn -> AccountDetailsScreen(viewModel = viewModel)
+        is AppStates.UiStates.Account.SignedIn -> AccountDetailsScreen(viewModel = viewModel, user = state.user)
         AppStates.UiStates.Account.CreatingAccount -> CreateAccountContent(viewModel = viewModel)
         else -> ErrorLogin(state)
     }
