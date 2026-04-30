@@ -14,12 +14,13 @@ import java.util.*
 const val DEFAULT_POSITION_TEXT = "Recherche de votre position..."
 
 class AddMachineViewModel : ViewModel() {
+    var name by mutableStateOf("")
+    var description by mutableStateOf("")
     var address by mutableStateOf(DEFAULT_POSITION_TEXT)
-    var comment by mutableStateOf("")
     var rating by mutableStateOf(3)
     var currentLatLng by mutableStateOf<LatLng?>(null)
 
-    // From llm
+    // From Gemini LLM
     @SuppressLint("MissingPermission")
     fun fetchCurrentLocation(context: Context) {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
@@ -27,7 +28,6 @@ class AddMachineViewModel : ViewModel() {
             location?.let {
                 val latLng = LatLng(it.latitude, it.longitude)
                 currentLatLng = latLng
-                // Convertir les coordonnées en adresse lisible
                 val geocoder = Geocoder(context, Locale.getDefault())
                 val addresses = geocoder.getFromLocation(it.latitude, it.longitude, 1)
                 address = addresses?.firstOrNull()?.getAddressLine(0) ?: "Adresse inconnue"
@@ -36,16 +36,14 @@ class AddMachineViewModel : ViewModel() {
     }
 
     fun saveMachine(onSuccess: () -> Unit) {
-                val latLng = currentLatLng ?: return
+        val latLng = currentLatLng ?: return
         val newMachine = VendingMachine(
             id = UUID.randomUUID().toString(),
-            name = address,
+            name = name.ifBlank { "Distributeur sans nom" },
             position = latLng,
-            description = comment
+            description = description
         )
         VendingRepository.addVendingMachine(newMachine)
         onSuccess()
     }
-
-
 }
