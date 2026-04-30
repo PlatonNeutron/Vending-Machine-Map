@@ -14,12 +14,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.example.vendingmachinemap.model.data.dao.UsersDAO
 import com.example.vendingmachinemap.ui.navigation.AppNavHost
 import com.example.vendingmachinemap.ui.navigation.Destinations
 
 // Creation of the NavBar
 @Composable
-fun NavigationBar() {
+fun NavigationBar(userDao: UsersDAO) {
     val navController = rememberNavController()
     val startDestination = Destinations.Map
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
@@ -46,5 +47,12 @@ fun NavigationBar() {
                 }
             }
         }
-    ) { contentPadding -> AppNavHost(navController, startDestination, modifier = Modifier.padding(contentPadding)) }
+    ) { contentPadding -> 
+        AppNavHost(
+            navController = navController, 
+            startDestination = startDestination, 
+            userDao = userDao,
+            modifier = Modifier.padding(contentPadding)
+        ) 
+    }
 }

@@ -5,12 +5,18 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.example.vendingmachinemap.model.data.dao.UsersDAO
 import com.example.vendingmachinemap.ui.screens.accountScreens.AccountScreen
 import com.example.vendingmachinemap.ui.screens.addMachineScreens.AddMachineScreen
 import com.example.vendingmachinemap.ui.screens.homeScreens.HomeScreen
 
 @Composable
-fun AppNavHost(navController: NavHostController, startDestination: Destinations, modifier: Modifier = Modifier) {
+fun AppNavHost(
+    navController: NavHostController,
+    startDestination: Destinations,
+    userDao: UsersDAO,
+    modifier: Modifier = Modifier
+) {
     NavHost(navController = navController, startDestination = startDestination.route, modifier = modifier) {
         composable(route = Destinations.Map.route) {
             HomeScreen(
@@ -20,7 +26,7 @@ fun AppNavHost(navController: NavHostController, startDestination: Destinations,
             )
         }
         composable(route = Destinations.Account.route) {
-            AccountScreen()
+            AccountScreen(dao = userDao)
         }
         composable(route = "add_machine_screen") {
             AddMachineScreen(

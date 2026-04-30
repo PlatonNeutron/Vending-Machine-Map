@@ -16,6 +16,6 @@ interface UsersDAO {
     @Delete
     suspend fun deleteUser(usersEntity: UsersEntity)
 
-    @Query("SELECT * FROM users WHERE userName = mail")
+    @Query("SELECT * FROM users WHERE mail = :mail")
     fun getCredentials(mail: String) : Flow<List<UsersEntity>>
 }
