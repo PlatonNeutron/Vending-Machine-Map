@@ -12,7 +12,7 @@ import androidx.room.Index
     foreignKeys = [
         ForeignKey(
             entity = UsersEntity::class,
-            parentColumns = ["id"],
+            parentColumns = ["mail"],
             childColumns = ["addedBy"]),
         ForeignKey(
             entity = VendingMachinesEntity::class,
@@ -23,7 +23,7 @@ import androidx.room.Index
         Index("vendingId")])
 data class VendingRatingEntity(
     val vendingId : Int = 0,
-    val addedBy : Int,
+    val addedBy : String,
     val vendingRating : Double,
     val vendingReview : String
 )
